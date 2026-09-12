@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cash Daftar — كاش دفتر | نظام محاسبة للمشاريع الصغيرة في الكويت</title>
+<meta name="description" content="كاش دفتر: نظام محاسبة سحابي بسيط للمشاريع الصغيرة والمتوسطة في الكويت — قيود، فواتير، مصروفات، تكلفة المنتجات، تحليل الحملات، وتقارير جاهزة للميزانية و XBRL. من كاش كلينك.">
+<link rel="icon" href="assets/brand/favicon.png">
+<link rel="stylesheet" href="assets/ds/styles.css">
+<style>
+:root{ --cd-gold:#D3A146; --cd-gold-700:#AD8132; --cd-gold-100:#F7ECD3; }
+body{margin:0;background:#fff;color:var(--cc-ink);}
+.wrap{max-width:1140px;margin:0 auto;padding:0 24px;}
+.hdr{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--cc-grey-200);}
+.hdr .in{display:flex;align-items:center;justify-content:space-between;gap:16px;height:72px;}
+.logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--cc-purple);}
+.logo img{height:44px;} .logo .t{font-size:21px;line-height:1;} .logo .t b{font-weight:600;} .logo .t span{font-weight:300;}
+.nav{display:flex;gap:22px;align-items:center;font-size:15px;}
+.nav a{color:var(--cc-grey-700);text-decoration:none;} .nav a:hover{color:var(--cc-purple);}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:var(--radius-pill);padding:12px 22px;font-weight:600;font-size:15px;cursor:pointer;text-decoration:none;line-height:1;font-family:inherit;}
+.btn-p{background:var(--cc-purple);color:var(--cc-cream);} .btn-p:hover{background:var(--cc-purple-700);}
+.btn-g{background:var(--cd-gold);color:var(--cc-purple);} .btn-g:hover{background:var(--cd-gold-700);color:#fff;}
+.btn-o{background:transparent;color:var(--cc-purple);border:1px solid var(--cc-purple-300);} .btn-o:hover{background:var(--cc-purple-050);}
+.langbtn{background:transparent;border:1px solid var(--cc-grey-300);border-radius:var(--radius-pill);padding:7px 12px;font-size:13px;font-weight:600;cursor:pointer;color:var(--cc-purple);}
+.hero{padding:88px 0 64px;background:radial-gradient(900px 480px at 85% -10%,var(--cd-gold-100),transparent 60%),radial-gradient(700px 400px at -5% 100%,var(--cc-purple-050),transparent 60%);}
+.hero .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;}
+.eyebrow{display:inline-block;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--cd-gold-700);background:var(--cd-gold-100);padding:7px 14px;border-radius:var(--radius-pill);}
+h1{font-size:clamp(36px,4.8vw,60px);line-height:1.15;font-weight:300;letter-spacing:-.02em;margin:22px 0 0;color:var(--cc-purple);}
+h1 b{font-weight:600;}
+.lede{font-size:18px;line-height:1.8;color:var(--cc-grey-700);max-width:48ch;margin:22px 0 0;}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px;}
+.hero-card{background:var(--cc-purple);border-radius:var(--radius-2xl);padding:32px;color:var(--cc-cream);box-shadow:var(--shadow-xl);}
+.hero-card .row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid rgba(255,230,187,.14);font-size:15px;}
+.hero-card .row:last-child{border:0;} .hero-card .n{font-variant-numeric:tabular-nums;direction:ltr;font-weight:500;}
+.hero-card .gold{color:var(--cd-gold);}
+.sec{padding:72px 0;} .sec.alt{background:var(--cc-grey-050);}
+.sec-h{text-align:center;max-width:640px;margin:0 auto 40px;}
+.sec-h h2{font-size:clamp(28px,3.4vw,40px);font-weight:300;letter-spacing:-.01em;margin:12px 0 0;color:var(--cc-purple);}
+.sec-h p{font-size:16.5px;line-height:1.8;color:var(--cc-grey-700);margin:14px 0 0;}
+.feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;}
+.f{background:#fff;border:1px solid var(--cc-grey-200);border-radius:var(--radius-xl);padding:26px;box-shadow:var(--shadow-xs);}
+.f .ic{width:44px;height:44px;border-radius:14px;background:var(--cd-gold-100);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px;}
+.f h3{margin:0;font-size:18px;font-weight:600;color:var(--cc-purple);} .f p{margin:8px 0 0;font-size:14.5px;line-height:1.75;color:var(--cc-grey-700);}
+.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;counter-reset:s;}
+.step{background:#fff;border-radius:var(--radius-xl);padding:26px;border:1px solid var(--cc-grey-200);}
+.step .n{width:36px;height:36px;border-radius:50%;background:var(--cc-purple);color:var(--cc-cream);display:flex;align-items:center;justify-content:center;font-weight:600;margin-bottom:14px;}
+.step h3{margin:0;font-size:18px;font-weight:600;color:var(--cc-purple);} .step p{margin:8px 0 0;font-size:14.5px;line-height:1.75;color:var(--cc-grey-700);}
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;max-width:760px;margin:0 auto;}
+.plan{background:#fff;border:1px solid var(--cc-grey-200);border-radius:var(--radius-2xl);padding:30px;position:relative;}
+.plan.best{border-color:var(--cd-gold);box-shadow:0 0 0 4px var(--cd-gold-100);}
+.plan .badge{position:absolute;top:-13px;inset-inline-start:24px;background:var(--cd-gold);color:var(--cc-purple);font-size:12px;font-weight:700;padding:5px 13px;border-radius:var(--radius-pill);}
+.plan .k{font-size:14px;font-weight:600;color:var(--cc-grey-500);}
+.plan .p{font-size:44px;font-weight:500;color:var(--cc-purple);margin:8px 0 2px;} .plan .p small{font-size:15px;color:var(--cc-grey-500);font-weight:400;}
+.plan .save{font-size:13px;color:var(--cd-gold-700);font-weight:600;height:18px;}
+.plan ul{padding-inline-start:18px;margin:18px 0 22px;color:var(--cc-grey-700);font-size:14.5px;line-height:2;}
+.faq{max-width:760px;margin:0 auto;} .faq details{background:#fff;border:1px solid var(--cc-grey-200);border-radius:var(--radius-lg);padding:16px 20px;margin-bottom:10px;}
+.faq summary{cursor:pointer;font-weight:600;color:var(--cc-purple);font-size:16px;} .faq p{margin:10px 0 0;color:var(--cc-grey-700);line-height:1.8;font-size:15px;}
+.foot{background:var(--cc-purple);color:var(--cc-purple-300);padding:44px 0;font-size:14px;}
+.foot .in{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;}
+.foot a{color:var(--cc-cream);text-decoration:none;} .foot img{height:34px;vertical-align:middle;}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate;}
+@media (max-width:860px){ .hero{padding:56px 0 40px;} .hero .grid{grid-template-columns:1fr;} .nav .lnk{display:none;} }
+</style>
+</head>
+<body>
+
+<header class="hdr"><div class="wrap in">
+  <a class="logo" href="index.html"><img src="assets/brand/daftar-mark.png" alt="Cash Daftar"><span class="t"><b>Cash</b> <span>Daftar</span></span></a>
+  <nav class="nav">
+    <a class="lnk" href="#features" data-ar="المميزات" data-en="Features">المميزات</a>
+    <a class="lnk" href="#how" data-ar="كيف يشتغل" data-en="How it works">كيف يشتغل</a>
+    <a class="lnk" href="#pricing" data-ar="الأسعار" data-en="Pricing">الأسعار</a>
+    <button class="langbtn" data-langbtn type="button">EN</button>
+    <a class="btn btn-p" href="app.html" data-ar="دخول / تسجيل" data-en="Sign in / Sign up">دخول / تسجيل</a>
+  </nav>
+</div></header>
+
+<section class="hero"><div class="wrap grid">
+  <div>
+    <span class="eyebrow" data-ar="نظام محاسبة للمشاريع الصغيرة والمتوسطة في الكويت" data-en="Accounting for Kuwaiti SMEs">نظام محاسبة للمشاريع الصغيرة والمتوسطة في الكويت</span>
+    <h1 data-ar="دفتر حسابات مشروعك.. <b>واضح ومرتّب</b> من أول يوم" data-en="Your business books, <b>clear and in order</b> from day one">دفتر حسابات مشروعك.. <b>واضح ومرتّب</b> من أول يوم</h1>
+    <p class="lede" data-ar="قيود يومية بالقيد المزدوج، فواتير ومصروفات، تكلفة منتجاتك وهامش ربحك، هل الإعلان مع المشهور يستاهل؟ وهل المعرض يجيب حقه؟ وفي نهاية السنة.. ميزانيتك جاهزة وملف XBRL للتقديم. كل هذا بالعربي وبالدينار الكويتي." data-en="Double-entry journal, invoices and expenses, product costing and margins, whether that influencer ad pays off, whether the exhibition is worth it — and at year end, your statements and an XBRL-ready file. All in Arabic and in KWD.">قيود يومية بالقيد المزدوج، فواتير ومصروفات، تكلفة منتجاتك وهامش ربحك، هل الإعلان مع المشهور يستاهل؟ وهل المعرض يجيب حقه؟ وفي نهاية السنة.. ميزانيتك جاهزة وملف XBRL للتقديم. كل هذا بالعربي وبالدينار الكويتي.</p>
+    <div class="cta">
+      <a class="btn btn-g" href="app.html" data-ar="ابدأ تجربتك المجانية" data-en="Start your free trial">ابدأ تجربتك المجانية</a>
+      <a class="btn btn-o" href="#pricing" data-ar="شوف الأسعار" data-en="See pricing">شوف الأسعار</a>
+    </div>
+    <p style="font-size:13px;color:var(--cc-grey-500);margin:16px 0 0" data-ar="7 أيام تجربة مجانية · بدون بطاقة · إلغاء في أي وقت" data-en="7-day free trial · no card needed · cancel anytime">7 أيام تجربة مجانية · بدون بطاقة · إلغاء في أي وقت</p>
+  </div>
+  <div class="hero-card">
+    <div style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--cc-purple-300);margin-bottom:8px" data-ar="ملخص الشهر — مثال" data-en="Month summary — example">ملخص الشهر — مثال</div>
+    <div class="row"><span data-ar="إيرادات المبيعات" data-en="Sales revenue">إيرادات المبيعات</span><span class="n">3,240.000</span></div>
+    <div class="row"><span data-ar="تكلفة البضاعة المباعة" data-en="Cost of goods sold">تكلفة البضاعة المباعة</span><span class="n">1,180.500</span></div>
+    <div class="row"><span data-ar="مصروفات تشغيلية" data-en="Operating expenses">مصروفات تشغيلية</span><span class="n">860.000</span></div>
+    <div class="row"><span data-ar="إعلان مشهور — طلبات التعادل" data-en="Influencer ad — break-even orders">إعلان مشهور — طلبات التعادل</span><span class="n">38 / 52 ✓</span></div>
+    <div class="row"><b data-ar="صافي الربح" data-en="Net profit">صافي الربح</b><b class="n gold">1,199.500 KWD</b></div>
+  </div>
+</div></section>
+
+<section class="sec" id="features"><div class="wrap">
+  <div class="sec-h"><span class="eyebrow" data-ar="المميزات" data-en="Features">المميزات</span><h2 data-ar="كل اللي يحتاجه مشروعك.. بدون تعقيد" data-en="Everything your business needs, without the complexity">كل اللي يحتاجه مشروعك.. بدون تعقيد</h2><p data-ar="مصمّم للمشاريع الكويتية: عطور، مقاهي، متاجر إنستغرام، ورش، وخدمات. وحدة عملة: الدينار الكويتي بثلاث خانات عشرية." data-en="Built for Kuwaiti businesses: perfume brands, cafés, Instagram shops, workshops and services. One currency: KWD to three decimals.">مصمّم للمشاريع الكويتية: عطور، مقاهي، متاجر إنستغرام، ورش، وخدمات. وحدة عملة: الدينار الكويتي بثلاث خانات عشرية.</p></div>
+  <div class="feat">
+    <div class="f"><div class="ic">📒</div><h3 data-ar="القيد المزدوج بدون صداع" data-en="Double-entry, headache-free">القيد المزدوج بدون صداع</h3><p data-ar="دليل حسابات جاهز للمشاريع الكويتية، وكل فاتورة ومصروف وسند قبض يولّد قيده تلقائياً. ما تقدر ترحّل قيد غير متوازن." data-en="A ready-made Kuwaiti SME chart of accounts. Every invoice, expense and receipt posts its own entry automatically — unbalanced entries can't be posted.">دليل حسابات جاهز للمشاريع الكويتية، وكل فاتورة ومصروف وسند قبض يولّد قيده تلقائياً. ما تقدر ترحّل قيد غير متوازن.</p></div>
+    <div class="f"><div class="ic">🧾</div><h3 data-ar="فواتير، عملاء، وموردون" data-en="Invoices, customers, suppliers">فواتير، عملاء، وموردون</h3><p data-ar="فواتير مبيعات، مصروفات نقدية أو آجلة، سندات قبض وصرف، وأرصدة العملاء والموردين محدّثة لحظياً." data-en="Sales invoices, cash or credit expenses, receipts and payments, with customer and supplier balances updated live.">فواتير مبيعات، مصروفات نقدية أو آجلة، سندات قبض وصرف، وأرصدة العملاء والموردين محدّثة لحظياً.</p></div>
+    <div class="f"><div class="ic">📦</div><h3 data-ar="تكلفة المنتج وهامش الربح" data-en="Product cost & margin">تكلفة المنتج وهامش الربح</h3><p data-ar="سجّل موادك الأولية وكمياتها لكل منتج، والنظام يطلع لك التكلفة الحقيقية، الهامش، وأقل سعر تبيع فيه بدون خسارة." data-en="Enter raw materials and quantities per product; the system gives you true cost, margin, and the minimum price before you lose money.">سجّل موادك الأولية وكمياتها لكل منتج، والنظام يطلع لك التكلفة الحقيقية، الهامش، وأقل سعر تبيع فيه بدون خسارة.</p></div>
+    <div class="f"><div class="ic">📣</div><h3 data-ar="إعلان مشهور؟ معرض؟ يستاهل أو لا" data-en="Influencer ad? Exhibition? Worth it or not">إعلان مشهور؟ معرض؟ يستاهل أو لا</h3><p data-ar="قبل ما تدفع: كم طلب تحتاج حتى تتعادل. بعد ما تدفع: كم طلب جاك فعلاً وكم ربحت. نفس الشي للمعارض والمشاركات." data-en="Before you pay: how many orders to break even. After: how many actually came in and what you made. Same for exhibitions and pop-ups.">قبل ما تدفع: كم طلب تحتاج حتى تتعادل. بعد ما تدفع: كم طلب جاك فعلاً وكم ربحت. نفس الشي للمعارض والمشاركات.</p></div>
+    <div class="f"><div class="ic">📊</div><h3 data-ar="تقارير تفهمها" data-en="Reports you actually understand">تقارير تفهمها</h3><p data-ar="قائمة الدخل، المركز المالي، ميزان المراجعة، كشف حساب لأي حساب، وتقرير 12 شهر يوريك الإيرادات والمصروفات وحركة الكاش شهر بشهر." data-en="P&L, balance sheet, trial balance, any account ledger, and a 12-month view of revenue, expenses and cash movement.">قائمة الدخل، المركز المالي، ميزان المراجعة، كشف حساب لأي حساب، وتقرير 12 شهر يوريك الإيرادات والمصروفات وحركة الكاش شهر بشهر.</p></div>
+    <div class="f"><div class="ic">📤</div><h3 data-ar="نهاية السنة و XBRL" data-en="Year-end & XBRL">نهاية السنة و XBRL</h3><p data-ar="ميزانيتك جاهزة، وملف Excel مربوط ببنود القوائم ورموز التصنيف الدولية، جاهز للترحيل إلى قالب XBRL المطلوب في الكويت." data-en="Statements ready, plus an Excel file mapped to statement lines and IFRS taxonomy elements, ready to transfer into Kuwait's XBRL template.">ميزانيتك جاهزة، وملف Excel مربوط ببنود القوائم ورموز التصنيف الدولية، جاهز للترحيل إلى قالب XBRL المطلوب في الكويت.</p></div>
+  </div>
+</div></section>
+
+<section class="sec alt" id="how"><div class="wrap">
+  <div class="sec-h"><span class="eyebrow" data-ar="كيف يشتغل" data-en="How it works">كيف يشتغل</span><h2 data-ar="ثلاث خطوات وتبدأ" data-en="Three steps and you're in">ثلاث خطوات وتبدأ</h2></div>
+  <div class="steps">
+    <div class="step"><div class="n">1</div><h3 data-ar="سجّل وأنشئ دفتر شركتك" data-en="Sign up and create your ledger">سجّل وأنشئ دفتر شركتك</h3><p data-ar="اسم المشروع ورقم الرخصة وشهر بداية سنتك المالية. دليل الحسابات ينضبط لك تلقائياً." data-en="Business name, licence number, and fiscal year start. The chart of accounts is set up for you.">اسم المشروع ورقم الرخصة وشهر بداية سنتك المالية. دليل الحسابات ينضبط لك تلقائياً.</p></div>
+    <div class="step"><div class="n">2</div><h3 data-ar="سجّل يومك" data-en="Record your day">سجّل يومك</h3><p data-ar="طلب انباع، فاتورة انطلعت، مصروف انصرف، دفعة وصلت. دقيقة لكل عملية." data-en="An order sold, an invoice issued, an expense paid, a payment received. A minute each.">طلب انباع، فاتورة انطلعت، مصروف انصرف، دفعة وصلت. دقيقة لكل عملية.</p></div>
+    <div class="step"><div class="n">3</div><h3 data-ar="اقرأ أرقامك وقرّر" data-en="Read your numbers and decide">اقرأ أرقامك وقرّر</h3><p data-ar="ربحك الحقيقي، منتجك الأربح، إعلانك الأنجح. وفي نهاية السنة الميزانية جاهزة." data-en="Your real profit, your most profitable product, your best campaign. At year end, the statements are ready.">ربحك الحقيقي، منتجك الأربح، إعلانك الأنجح. وفي نهاية السنة الميزانية جاهزة.</p></div>
+  </div>
+</div></section>
+
+<section class="sec" id="pricing"><div class="wrap">
+  <div class="sec-h"><span class="eyebrow" data-ar="الأسعار" data-en="Pricing">الأسعار</span><h2 data-ar="سعر واحد بسيط.. كل المميزات" data-en="One simple price, every feature">سعر واحد بسيط.. كل المميزات</h2><p data-ar="بدون باقات معقدة. اشتراك واحد يفتح لك كل النظام." data-en="No complicated tiers. One subscription unlocks the whole system.">بدون باقات معقدة. اشتراك واحد يفتح لك كل النظام.</p></div>
+  <div class="plans">
+    <div class="plan"><div class="k" data-ar="شهري" data-en="Monthly">شهري</div><div class="p"><span class="num">4.950</span> <small data-ar="د.ك / شهر" data-en="KWD / month">د.ك / شهر</small></div><div class="save"></div>
+      <ul><li data-ar="دفتر كامل: قيود، فواتير، مصروفات، قبض وصرف" data-en="Full ledger: journal, invoices, expenses, receipts & payments">دفتر كامل: قيود، فواتير، مصروفات، قبض وصرف</li><li data-ar="تكلفة المنتجات وتحليل الحملات والمعارض" data-en="Product costing, campaign & exhibition analysis">تكلفة المنتجات وتحليل الحملات والمعارض</li><li data-ar="التقارير المالية وتصدير XBRL" data-en="Financial reports and XBRL export">التقارير المالية وتصدير XBRL</li><li data-ar="محاسب إضافي بصلاحية دخول" data-en="Extra accountant seat">محاسب إضافي بصلاحية دخول</li></ul>
+      <a class="btn btn-o" style="width:100%" href="app.html" data-ar="ابدأ التجربة المجانية" data-en="Start free trial">ابدأ التجربة المجانية</a></div>
+    <div class="plan best"><div class="badge" data-ar="الأوفر — شهرين مجاناً" data-en="Best value — 2 months free">الأوفر — شهرين مجاناً</div><div class="k" data-ar="سنوي" data-en="Annual">سنوي</div><div class="p"><span class="num">50.000</span> <small data-ar="د.ك / سنة" data-en="KWD / year">د.ك / سنة</small></div><div class="save" data-ar="≈ 4.167 د.ك بالشهر" data-en="≈ 4.167 KWD per month">≈ 4.167 د.ك بالشهر</div>
+      <ul><li data-ar="دفتر كامل: قيود، فواتير، مصروفات، قبض وصرف" data-en="Full ledger: journal, invoices, expenses, receipts & payments">دفتر كامل: قيود، فواتير، مصروفات، قبض وصرف</li><li data-ar="تكلفة المنتجات وتحليل الحملات والمعارض" data-en="Product costing, campaign & exhibition analysis">تكلفة المنتجات وتحليل الحملات والمعارض</li><li data-ar="التقارير المالية وتصدير XBRL" data-en="Financial reports and XBRL export">التقارير المالية وتصدير XBRL</li><li data-ar="محاسب إضافي بصلاحية دخول" data-en="Extra accountant seat">محاسب إضافي بصلاحية دخول</li></ul>
+      <a class="btn btn-g" style="width:100%" href="app.html" data-ar="ابدأ التجربة المجانية" data-en="Start free trial">ابدأ التجربة المجانية</a></div>
+  </div>
+  <p style="text-align:center;font-size:13.5px;color:var(--cc-grey-500);margin:22px 0 0" data-ar="الدفع عبر Tap: KNET أو بطاقة. الأسعار بالدينار الكويتي." data-en="Payment via Tap: KNET or card. Prices in KWD.">الدفع عبر Tap: KNET أو بطاقة. الأسعار بالدينار الكويتي.</p>
+</div></section>
+
+<section class="sec alt"><div class="wrap">
+  <div class="sec-h"><h2 data-ar="أسئلة شائعة" data-en="FAQ">أسئلة شائعة</h2></div>
+  <div class="faq">
+    <details><summary data-ar="أنا مو محاسب.. أقدر أستخدمه؟" data-en="I'm not an accountant — can I use it?">أنا مو محاسب.. أقدر أستخدمه؟</summary><p data-ar="إي. تسجّل فاتورة أو مصروف أو طلب بشاشة بسيطة، والقيد المحاسبي يتولّد وراها تلقائياً. ولو عندك محاسب، تعطيه صلاحية دخول على دفترك." data-en="Yes. You record an invoice, expense or order in a simple form and the accounting entry is generated behind it. If you have an accountant, give them access to your ledger.">إي. تسجّل فاتورة أو مصروف أو طلب بشاشة بسيطة، والقيد المحاسبي يتولّد وراها تلقائياً. ولو عندك محاسب، تعطيه صلاحية دخول على دفترك.</p></details>
+    <details><summary data-ar="شنو XBRL وليش يهمني؟" data-en="What is XBRL and why does it matter?">شنو XBRL وليش يهمني؟</summary><p data-ar="صيغة إلكترونية موحّدة للقوائم المالية تُطلب عند تقديم الميزانية في الكويت. كاش دفتر يطلع لك ملف Excel مربوط ببنود القوائم ورموز التصنيف الدولية حتى يكون الترحيل للقالب المطلوب سهل ومباشر." data-en="A standard electronic format for financial statements required when filing in Kuwait. Cash Daftar produces an Excel file mapped to statement lines and international taxonomy elements so transferring into the required template is straightforward.">صيغة إلكترونية موحّدة للقوائم المالية تُطلب عند تقديم الميزانية في الكويت. كاش دفتر يطلع لك ملف Excel مربوط ببنود القوائم ورموز التصنيف الدولية حتى يكون الترحيل للقالب المطلوب سهل ومباشر.</p></details>
+    <details><summary data-ar="بياناتي وين تنحفظ؟" data-en="Where is my data stored?">بياناتي وين تنحفظ؟</summary><p data-ar="على Google Cloud (Firebase) بتشفير كامل، وكل شركة لها مساحة منفصلة ما يشوفها غير أعضائها. الكتابة كلها تمر عبر خادم يتحقق من صلاحيتك وتوازن القيد." data-en="On Google Cloud (Firebase) with full encryption; every company has its own isolated space visible only to its members. All writes pass through a server that verifies your permission and the entry's balance.">على Google Cloud (Firebase) بتشفير كامل، وكل شركة لها مساحة منفصلة ما يشوفها غير أعضائها. الكتابة كلها تمر عبر خادم يتحقق من صلاحيتك وتوازن القيد.</p></details>
+    <details><summary data-ar="أقدر ألغي؟" data-en="Can I cancel?">أقدر ألغي؟</summary><p data-ar="الاشتراك مدفوع مقدماً لمدته ولا يتجدد تلقائياً. لو ما جدّدت، دفترك يبقى للقراءة وتقدر ترجّع تفعّله في أي وقت." data-en="Subscriptions are prepaid for their period and don't auto-renew. If you don't renew, your ledger stays read-only and you can reactivate any time.">الاشتراك مدفوع مقدماً لمدته ولا يتجدد تلقائياً. لو ما جدّدت، دفترك يبقى للقراءة وتقدر ترجّع تفعّله في أي وقت.</p></details>
+  </div>
+</div></section>
+
+<section class="sec" style="padding:56px 0"><div class="wrap" style="text-align:center">
+  <h2 style="font-size:clamp(26px,3.2vw,36px);font-weight:300;color:var(--cc-purple);margin:0" data-ar="جاهز ترتّب دفترك؟" data-en="Ready to get your books in order?">جاهز ترتّب دفترك؟</h2>
+  <div class="cta" style="justify-content:center"><a class="btn btn-g" href="app.html" data-ar="ابدأ تجربتك المجانية" data-en="Start your free trial">ابدأ تجربتك المجانية</a><a class="btn btn-o wa" href="https://wa.me/96522260820" data-wa-msg="السلام عليكم، أبي أستفسر عن نظام كاش دفتر" data-ar="اسأل على واتساب" data-en="Ask on WhatsApp">اسأل على واتساب</a></div>
+</div></section>
+
+<footer class="foot"><div class="wrap in">
+  <div><img src="assets/brand/daftar-logo-light.png" alt="Cash Daftar" style="height:44px"></div>
+  <div style="display:flex;align-items:center;gap:10px"><span data-ar="منتج من" data-en="A product of">منتج من</span><a href="https://cashclinic.net" target="_blank" rel="noopener"><img src="assets/brand/cashclinic-cream.png" alt="Cash Clinic"></a></div>
+  <div>© <span class="num">2026</span> Cash Clinic · <a href="https://cashclinic.net/policy.html" data-ar="السياسات" data-en="Policies">السياسات</a></div>
+</div></footer>
+
+<script src="assets/js/i18n.js"></script>
+<script>
+/* i18n.js swaps textContent only — the H1 carries a <b>, so re-apply it as HTML on toggle */
+(function(){var h=document.querySelector('h1[data-ar]');function fix(){var l=document.documentElement.getAttribute('data-lang')||'ar';h.innerHTML=h.getAttribute('data-'+l);}
+fix();var b=document.querySelector('[data-langbtn]');if(b)b.addEventListener('click',function(){setTimeout(fix,0);});})();
+</script>
+</body>
+</html>

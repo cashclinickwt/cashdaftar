@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>تم الدفع — Cash Daftar</title>
+<meta name="robots" content="noindex">
+<link rel="icon" href="assets/brand/favicon.png">
+<link rel="stylesheet" href="assets/ds/styles.css">
+<link rel="stylesheet" href="assets/css/app.css">
+</head>
+<body>
+<div class="cd-screen"><div class="cd-card" style="text-align:center">
+  <div class="cd-brand" style="justify-content:center"><img src="assets/brand/daftar-mark.png" alt=""><div class="t"><b>Cash</b> <span>Daftar</span></div></div>
+  <div id="st"><div class="muted">جارٍ التحقق من الدفعة…</div></div>
+</div></div>
+<script src="assets/js/config.js"></script>
+<script type="module">
+import { initializeApp } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-app.js";
+import { getAuth, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-auth.js";
+import { getFunctions, httpsCallable } from "https://www.gstatic.com/firebasejs/10.12.2/firebase-functions.js";
+const app = initializeApp(window.CD_CONFIG.firebase);
+const auth = getAuth(app);
+const getStatus = httpsCallable(getFunctions(app, window.CD_CONFIG.functionsRegion), "getSubscriptionStatus");
+const orderId = new URLSearchParams(location.search).get("order");
+const st = document.getElementById("st");
+const show = (html) => { st.innerHTML = html; };
+onAuthStateChanged(auth, async (u) => {
+  if (!u) { show(`<div class="err">سجّل الدخول لعرض حالة الدفعة</div><a class="btn btn-p" href="app.html#billing">تسجيل الدخول</a>`); return; }
+  if (!orderId) { show(`<div class="err">رقم الطلب مفقود</div><a class="btn btn-o" href="app.html#billing">العودة للاشتراك</a>`); return; }
+  for (let i = 0; i < 12; i++) {
+    try {
+      const r = (await getStatus({ orderId })).data;
+      if (r.status === "paid") { show(`<div class="ok">✅ تم تفعيل الاشتراك</div><p>الباقة: <b>${r.plan === "annual" ? "سنوي" : "شهري"}</b> — ${r.amount} د.ك<br>ساري حتى: <b class="num">${(r.periodEnd || "").slice(0, 10)}</b></p><a class="btn btn-g" href="app.html#home">افتح دفترك</a>`); return; }
+      if (["declined", "failed", "cancelled", "abandoned", "review"].includes(r.status)) { show(`<div class="err">لم تكتمل الدفعة (${r.status})</div><a class="btn btn-o" href="app.html#billing">المحاولة مرة أخرى</a>`); return; }
+    } catch (e) { show(`<div class="err">${e.message}</div>`); return; }
+    await new Promise((r) => setTimeout(r, 2500));
+  }
+  show(`<div class="muted">الدفعة قيد المعالجة. لو انخصم المبلغ ولم يتفعل الاشتراك خلال دقائق، تواصل معنا وارفق رقم الطلب <span class="num">${orderId}</span>.</div><a class="btn btn-o" href="app.html#billing">العودة</a>`);
+});
+</script>
+</body>
+</html>
