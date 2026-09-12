@@ -5,48 +5,116 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Cash Daftar — كاش دفتر | نظام محاسبة للمشاريع الصغيرة في الكويت</title>
 <meta name="description" content="كاش دفتر: نظام محاسبة سحابي بسيط للمشاريع الصغيرة والمتوسطة في الكويت — قيود، فواتير، مصروفات، تكلفة المنتجات، تحليل الحملات، وتقارير جاهزة للميزانية و XBRL. من كاش كلينك.">
+<meta property="og:title" content="Cash Daftar — كاش دفتر">
+<meta property="og:description" content="دفتر حسابات مشروعك.. واضح ومرتّب من أول يوم. نظام محاسبة للمشاريع الصغيرة والمتوسطة في الكويت، من كاش كلينك.">
+<meta property="og:image" content="https://cashclinickwt.github.io/cashdaftar/assets/brand/daftar-logo.png">
 <link rel="icon" href="assets/brand/favicon.png">
 <link rel="stylesheet" href="assets/ds/styles.css">
 <style>
-:root{ --cd-gold:#D3A146; --cd-gold-700:#AD8132; --cd-gold-100:#F7ECD3; }
-body{margin:0;background:#fff;color:var(--cc-ink);}
+:root{ --cd-gold:#D3A146; --cd-gold-700:#AD8132; --cd-gold-100:#F7ECD3; --hero-p:0; }
+html{scroll-behavior:smooth;}
+body{margin:0;background:#fff;color:var(--cc-ink);overflow-x:hidden;}
 .wrap{max-width:1140px;margin:0 auto;padding:0 24px;}
-.hdr{position:sticky;top:0;z-index:20;background:rgba(255,255,255,.92);backdrop-filter:blur(10px);border-bottom:1px solid var(--cc-grey-200);}
+.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate;}
+.hdr{position:sticky;top:0;z-index:30;background:rgba(255,255,255,.88);backdrop-filter:blur(12px);border-bottom:1px solid var(--cc-grey-200);}
 .hdr .in{display:flex;align-items:center;justify-content:space-between;gap:16px;height:72px;}
 .logo{display:flex;align-items:center;gap:10px;text-decoration:none;color:var(--cc-purple);}
-.logo img{height:44px;} .logo .t{font-size:21px;line-height:1;} .logo .t b{font-weight:600;} .logo .t span{font-weight:300;}
+.logo img{height:44px;} .logo .t{font-size:21px;line-height:1;white-space:nowrap;} .logo .t b{font-weight:600;} .logo .t span{font-weight:300;}
 .nav{display:flex;gap:22px;align-items:center;font-size:15px;}
 .nav a{color:var(--cc-grey-700);text-decoration:none;} .nav a:hover{color:var(--cc-purple);}
-.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:var(--radius-pill);padding:12px 22px;font-weight:600;font-size:15px;cursor:pointer;text-decoration:none;line-height:1;font-family:inherit;}
+.btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;border:0;border-radius:var(--radius-pill);padding:12px 22px;font-weight:600;font-size:15px;cursor:pointer;text-decoration:none;line-height:1;font-family:inherit;white-space:nowrap;transition:transform .15s,background .18s;}
+.btn:hover{transform:translateY(-1px);}
 .btn-p{background:var(--cc-purple);color:var(--cc-cream);} .btn-p:hover{background:var(--cc-purple-700);}
 .btn-g{background:var(--cd-gold);color:var(--cc-purple);} .btn-g:hover{background:var(--cd-gold-700);color:#fff;}
 .btn-o{background:transparent;color:var(--cc-purple);border:1px solid var(--cc-purple-300);} .btn-o:hover{background:var(--cc-purple-050);}
+.btn-c{background:transparent;color:var(--cc-cream);border:1px solid rgba(255,230,187,.4);} .btn-c:hover{background:rgba(255,230,187,.1);}
 .langbtn{background:transparent;border:1px solid var(--cc-grey-300);border-radius:var(--radius-pill);padding:7px 12px;font-size:13px;font-weight:600;cursor:pointer;color:var(--cc-purple);}
-.hero{padding:88px 0 64px;background:radial-gradient(900px 480px at 85% -10%,var(--cd-gold-100),transparent 60%),radial-gradient(700px 400px at -5% 100%,var(--cc-purple-050),transparent 60%);}
-.hero .grid{display:grid;grid-template-columns:1.1fr .9fr;gap:48px;align-items:center;}
 .eyebrow{display:inline-block;font-size:13px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:var(--cd-gold-700);background:var(--cd-gold-100);padding:7px 14px;border-radius:var(--radius-pill);}
-h1{font-size:clamp(36px,4.8vw,60px);line-height:1.15;font-weight:300;letter-spacing:-.02em;margin:22px 0 0;color:var(--cc-purple);}
+
+/* ---- reveals ---- */
+.rv{opacity:0;transform:translateY(28px);transition:opacity .7s cubic-bezier(.2,.7,.2,1),transform .7s cubic-bezier(.2,.7,.2,1);transition-delay:calc(var(--i,0) * 90ms);}
+.rv.in{opacity:1;transform:none;}
+
+/* ---- hero ---- */
+.hero{position:relative;min-height:calc(100vh - 72px);display:flex;align-items:center;padding:56px 0 40px;overflow:hidden;
+  background:radial-gradient(900px 480px at 85% -10%,var(--cd-gold-100),transparent 60%),radial-gradient(700px 400px at -5% 100%,var(--cc-purple-050),transparent 60%);}
+.hero .grid{display:grid;grid-template-columns:1fr 1.05fr;gap:48px;align-items:center;}
+.hero .copy{opacity:calc(1 - var(--hero-p) * .8);transform:translateY(calc(var(--hero-p) * -40px));}
+h1{font-size:clamp(34px,4.4vw,56px);line-height:1.15;font-weight:300;letter-spacing:-.02em;margin:22px 0 0;color:var(--cc-purple);}
 h1 b{font-weight:600;}
-.lede{font-size:18px;line-height:1.8;color:var(--cc-grey-700);max-width:48ch;margin:22px 0 0;}
-.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:30px;}
-.hero-card{background:var(--cc-purple);border-radius:var(--radius-2xl);padding:32px;color:var(--cc-cream);box-shadow:var(--shadow-xl);}
-.hero-card .row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid rgba(255,230,187,.14);font-size:15px;}
-.hero-card .row:last-child{border:0;} .hero-card .n{font-variant-numeric:tabular-nums;direction:ltr;font-weight:500;}
-.hero-card .gold{color:var(--cd-gold);}
-.sec{padding:72px 0;} .sec.alt{background:var(--cc-grey-050);}
+.lede{font-size:17.5px;line-height:1.8;color:var(--cc-grey-700);max-width:48ch;margin:20px 0 0;}
+.cta{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px;}
+.scene{perspective:1600px;perspective-origin:50% 40%;}
+.float{animation:float 7s ease-in-out infinite;}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-10px)}}
+.hero-3d{--mx:0;--my:0;transform-style:preserve-3d;
+  transform:rotateX(calc((1 - var(--hero-p)) * 12deg + var(--my) * -6deg)) rotateY(calc((1 - var(--hero-p)) * -16deg + var(--mx) * 8deg)) translateZ(calc(var(--hero-p) * 30px));
+  transition:transform .12s linear;will-change:transform;}
+.dev{background:#fff;border-radius:18px;box-shadow:0 30px 80px rgba(47,23,73,.25),0 6px 18px rgba(47,23,73,.1);overflow:hidden;border:1px solid var(--cc-grey-200);}
+.dev .bar{height:34px;background:var(--cc-grey-100);border-bottom:1px solid var(--cc-grey-200);display:flex;align-items:center;gap:6px;padding:0 14px;}
+.dev .bar i{width:10px;height:10px;border-radius:50%;background:var(--cc-grey-300);} .dev .bar i:nth-child(1){background:#E7A29A;} .dev .bar i:nth-child(2){background:#EBCB8B;} .dev .bar i:nth-child(3){background:#A6D7B8;}
+.dev .bar span{margin-inline-start:auto;font-size:11px;color:var(--cc-grey-500);direction:ltr;}
+.dev img{display:block;width:100%;height:auto;}
+.chip{position:absolute;background:#fff;border:1px solid var(--cc-grey-200);border-radius:14px;padding:10px 14px;box-shadow:var(--shadow-md);font-size:13px;display:flex;align-items:center;gap:8px;transform:translateZ(60px);}
+.chip b{color:var(--cc-purple);font-weight:600;} .chip.g{color:var(--cc-teal-700);}
+.chip.c1{top:-16px;inset-inline-end:-10px;} .chip.c2{bottom:-14px;inset-inline-start:-14px;}
+.chip .dot{width:9px;height:9px;border-radius:50%;background:var(--cc-teal);box-shadow:0 0 0 4px var(--cc-teal-100);}
+
+/* ---- pinned sections ---- */
+.pin{position:relative;}
+.pin .stage{position:sticky;top:0;height:100vh;display:flex;align-items:center;overflow:hidden;}
+#journey{background:var(--cc-purple);color:var(--cc-cream);height:260vh;}
+#journey .jin{width:100%;}
+#journey svg{width:100%;height:auto;max-height:52vh;display:block;}
+#journey #tangle,#journey #line{will-change:stroke-dashoffset,opacity;}
+#journey #line{opacity:0;}
+.jcaps{position:relative;height:96px;margin:6px 0 0;}
+.jcap{position:absolute;inset:0;text-align:center;opacity:0;transform:translateY(14px);transition:opacity .3s,transform .3s;}
+.jcap.on{opacity:1;transform:none;}
+.jcap h2{font-size:clamp(24px,3.2vw,38px);font-weight:300;margin:0;color:var(--cc-cream);} .jcap h2 b{font-weight:600;color:var(--cd-gold);}
+.jcap p{margin:10px 0 0;color:var(--cc-purple-300);font-size:16px;}
+.jchips{display:flex;justify-content:center;gap:10px;flex-wrap:wrap;margin-top:18px;}
+.jchips span{background:rgba(255,230,187,.1);border:1px solid rgba(255,230,187,.28);border-radius:var(--radius-pill);padding:8px 14px;font-size:13.5px;opacity:0;transform:translateY(10px);transition:opacity .5s,transform .5s;transition-delay:calc(var(--i) * 120ms);}
+#journey.done .jchips span{opacity:1;transform:none;}
+
+#stack{background:var(--cc-grey-050);height:340vh;}
+#stack .sgrid{display:grid;grid-template-columns:.9fr 1.3fr;gap:40px;align-items:center;width:100%;}
+.scaps{position:relative;min-height:240px;}
+.scap{position:absolute;inset:0;opacity:0;transform:translateY(16px);transition:opacity .3s,transform .3s;}
+.scap.on{opacity:1;transform:none;}
+.scap .k{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:600;color:var(--cd-gold-700);background:var(--cd-gold-100);padding:6px 12px;border-radius:var(--radius-pill);}
+.scap h2{font-size:clamp(26px,3vw,36px);font-weight:300;margin:14px 0 0;color:var(--cc-purple);} .scap h2 b{font-weight:600;}
+.scap p{font-size:16px;line-height:1.8;color:var(--cc-grey-700);margin:12px 0 0;}
+.sdots{display:flex;gap:8px;margin-top:22px;} .sdots i{width:34px;height:4px;border-radius:2px;background:var(--cc-grey-200);}
+.sdots i.on{background:var(--cd-gold);}
+.sdev{position:relative;height:min(62vh,560px);perspective:1500px;perspective-origin:50% 30%;}
+.sdev .dev{position:absolute;inset:0 0 auto 0;transform-origin:50% 100%;will-change:transform,opacity;opacity:0;}
+
+/* ---- numbers ---- */
+.nums{background:var(--cc-purple);color:var(--cc-cream);padding:44px 0;}
+.nums .in{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:20px;text-align:center;}
+.nums .v{font-size:48px;font-weight:300;color:var(--cd-gold);line-height:1;} .nums .k{font-size:14px;color:var(--cc-purple-300);margin-top:8px;}
+
+/* ---- sections ---- */
+.sec{padding:80px 0;} .sec.alt{background:var(--cc-grey-050);}
 .sec-h{text-align:center;max-width:640px;margin:0 auto 40px;}
 .sec-h h2{font-size:clamp(28px,3.4vw,40px);font-weight:300;letter-spacing:-.01em;margin:12px 0 0;color:var(--cc-purple);}
 .sec-h p{font-size:16.5px;line-height:1.8;color:var(--cc-grey-700);margin:14px 0 0;}
 .feat{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:18px;}
-.f{background:#fff;border:1px solid var(--cc-grey-200);border-radius:var(--radius-xl);padding:26px;box-shadow:var(--shadow-xs);}
+.f{background:#fff;border:1px solid var(--cc-grey-200);border-radius:var(--radius-xl);padding:26px;box-shadow:var(--shadow-xs);transition:transform .25s,box-shadow .25s;}
+.f:hover{transform:translateY(-4px);box-shadow:var(--shadow-md);}
 .f .ic{width:44px;height:44px;border-radius:14px;background:var(--cd-gold-100);display:flex;align-items:center;justify-content:center;font-size:22px;margin-bottom:16px;}
 .f h3{margin:0;font-size:18px;font-weight:600;color:var(--cc-purple);} .f p{margin:8px 0 0;font-size:14.5px;line-height:1.75;color:var(--cc-grey-700);}
-.steps{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:18px;counter-reset:s;}
-.step{background:#fff;border-radius:var(--radius-xl);padding:26px;border:1px solid var(--cc-grey-200);}
-.step .n{width:36px;height:36px;border-radius:50%;background:var(--cc-purple);color:var(--cc-cream);display:flex;align-items:center;justify-content:center;font-weight:600;margin-bottom:14px;}
-.step h3{margin:0;font-size:18px;font-weight:600;color:var(--cc-purple);} .step p{margin:8px 0 0;font-size:14.5px;line-height:1.75;color:var(--cc-grey-700);}
+.how{display:grid;grid-template-columns:1.2fr .8fr;gap:48px;align-items:center;}
+.steps{display:flex;flex-direction:column;gap:16px;}
+.step{background:#fff;border-radius:var(--radius-xl);padding:22px 24px;border:1px solid var(--cc-grey-200);display:flex;gap:18px;align-items:flex-start;}
+.step .n{flex:none;width:36px;height:36px;border-radius:50%;background:var(--cc-purple);color:var(--cc-cream);display:flex;align-items:center;justify-content:center;font-weight:600;}
+.step h3{margin:0;font-size:18px;font-weight:600;color:var(--cc-purple);} .step p{margin:6px 0 0;font-size:14.5px;line-height:1.75;color:var(--cc-grey-700);}
+.phone{width:min(300px,80%);margin:0 auto;background:#1B1226;border-radius:38px;padding:12px;box-shadow:0 30px 70px rgba(47,23,73,.28);}
+.phone img{display:block;width:100%;border-radius:28px;}
 .plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:20px;max-width:760px;margin:0 auto;}
-.plan{background:#fff;border:1px solid var(--cc-grey-200);border-radius:var(--radius-2xl);padding:30px;position:relative;}
+.plan{background:#fff;border:1px solid var(--cc-grey-200);border-radius:var(--radius-2xl);padding:30px;position:relative;transition:transform .25s;}
+.plan:hover{transform:translateY(-4px);}
 .plan.best{border-color:var(--cd-gold);box-shadow:0 0 0 4px var(--cd-gold-100);}
 .plan .badge{position:absolute;top:-13px;inset-inline-start:24px;background:var(--cd-gold);color:var(--cc-purple);font-size:12px;font-weight:700;padding:5px 13px;border-radius:var(--radius-pill);}
 .plan .k{font-size:14px;font-weight:600;color:var(--cc-grey-500);}
@@ -55,11 +123,22 @@ h1 b{font-weight:600;}
 .plan ul{padding-inline-start:18px;margin:18px 0 22px;color:var(--cc-grey-700);font-size:14.5px;line-height:2;}
 .faq{max-width:760px;margin:0 auto;} .faq details{background:#fff;border:1px solid var(--cc-grey-200);border-radius:var(--radius-lg);padding:16px 20px;margin-bottom:10px;}
 .faq summary{cursor:pointer;font-weight:600;color:var(--cc-purple);font-size:16px;} .faq p{margin:10px 0 0;color:var(--cc-grey-700);line-height:1.8;font-size:15px;}
-.foot{background:var(--cc-purple);color:var(--cc-purple-300);padding:44px 0;font-size:14px;}
+.final{background:linear-gradient(135deg,var(--cc-purple),#3D2160 60%,#4A2A70);color:var(--cc-cream);padding:80px 0;text-align:center;}
+.final h2{font-size:clamp(28px,3.6vw,44px);font-weight:300;margin:0;} .final h2 b{font-weight:600;color:var(--cd-gold);}
+.foot{background:var(--cc-purple);color:var(--cc-purple-300);padding:36px 0;font-size:14px;border-top:1px solid rgba(255,230,187,.14);}
 .foot .in{display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap;}
 .foot a{color:var(--cc-cream);text-decoration:none;} .foot img{height:34px;vertical-align:middle;}
-.num{font-variant-numeric:tabular-nums;direction:ltr;unicode-bidi:isolate;}
-@media (max-width:860px){ .hero{padding:56px 0 40px;} .hero .grid{grid-template-columns:1fr;} .nav .lnk{display:none;} }
+
+@media (max-width:860px){
+  .hero{padding:40px 0 32px;min-height:0;} .hero .grid{grid-template-columns:1fr;gap:34px;} .nav .lnk{display:none;} .nav{gap:10px;} .hdr .btn{padding:10px 14px;font-size:14px;} .logo img{height:38px;} .logo .t{font-size:18px;}
+  .hero-3d{transform:none!important;} .float{animation:none;} .chip.c1{top:-12px;} .chip.c2{bottom:-12px;}
+  .pin{height:auto!important;} .pin .stage{position:static;height:auto;display:block;padding:56px 0;}
+  #journey svg{max-height:none;} .jcaps{height:auto;} .jcap{position:static;opacity:1;transform:none;display:none;} .jcap.on{display:block;}
+  #stack .sgrid{grid-template-columns:1fr;gap:20px;} .scaps{min-height:0;} .scap{position:static;display:none;} .scap.on{display:block;}
+  .sdev{height:auto;perspective:none;} .sdev .dev,.scaps .dev{position:static;opacity:1!important;transform:none!important;filter:none!important;margin:16px 0 28px;}
+  .how{grid-template-columns:1fr;}
+}
+@media (prefers-reduced-motion:reduce){ .rv{opacity:1;transform:none;transition:none;} .float{animation:none;} .hero-3d{transform:none!important;transition:none;} }
 </style>
 </head>
 <body>
@@ -76,63 +155,103 @@ h1 b{font-weight:600;}
 </div></header>
 
 <section class="hero"><div class="wrap grid">
-  <div>
+  <div class="copy">
     <span class="eyebrow" data-ar="نظام محاسبة للمشاريع الصغيرة والمتوسطة في الكويت" data-en="Accounting for Kuwaiti SMEs">نظام محاسبة للمشاريع الصغيرة والمتوسطة في الكويت</span>
     <h1 data-ar="دفتر حسابات مشروعك.. <b>واضح ومرتّب</b> من أول يوم" data-en="Your business books, <b>clear and in order</b> from day one">دفتر حسابات مشروعك.. <b>واضح ومرتّب</b> من أول يوم</h1>
     <p class="lede" data-ar="قيود يومية بالقيد المزدوج، فواتير ومصروفات، تكلفة منتجاتك وهامش ربحك، هل الإعلان مع المشهور يستاهل؟ وهل المعرض يجيب حقه؟ وفي نهاية السنة.. ميزانيتك جاهزة وملف XBRL للتقديم. كل هذا بالعربي وبالدينار الكويتي." data-en="Double-entry journal, invoices and expenses, product costing and margins, whether that influencer ad pays off, whether the exhibition is worth it — and at year end, your statements and an XBRL-ready file. All in Arabic and in KWD.">قيود يومية بالقيد المزدوج، فواتير ومصروفات، تكلفة منتجاتك وهامش ربحك، هل الإعلان مع المشهور يستاهل؟ وهل المعرض يجيب حقه؟ وفي نهاية السنة.. ميزانيتك جاهزة وملف XBRL للتقديم. كل هذا بالعربي وبالدينار الكويتي.</p>
     <div class="cta">
       <a class="btn btn-g" href="app.html" data-ar="ابدأ تجربتك المجانية" data-en="Start your free trial">ابدأ تجربتك المجانية</a>
-      <a class="btn btn-o" href="#pricing" data-ar="شوف الأسعار" data-en="See pricing">شوف الأسعار</a>
+      <a class="btn btn-o" href="#journey" data-ar="شوف كيف يشتغل" data-en="See how it works">شوف كيف يشتغل</a>
     </div>
-    <p style="font-size:13px;color:var(--cc-grey-500);margin:16px 0 0" data-ar="7 أيام تجربة مجانية · بدون بطاقة · إلغاء في أي وقت" data-en="7-day free trial · no card needed · cancel anytime">7 أيام تجربة مجانية · بدون بطاقة · إلغاء في أي وقت</p>
+    <p style="font-size:13px;color:var(--cc-grey-500);margin:16px 0 0" data-ar="تجربة مجانية · بدون بطاقة · بياناتك في مساحة منفصلة لشركتك" data-en="Free trial · no card needed · your data in its own company space">تجربة مجانية · بدون بطاقة · بياناتك في مساحة منفصلة لشركتك</p>
   </div>
-  <div class="hero-card">
-    <div style="font-size:13px;letter-spacing:.1em;text-transform:uppercase;color:var(--cc-purple-300);margin-bottom:8px" data-ar="ملخص الشهر — مثال" data-en="Month summary — example">ملخص الشهر — مثال</div>
-    <div class="row"><span data-ar="إيرادات المبيعات" data-en="Sales revenue">إيرادات المبيعات</span><span class="n">3,240.000</span></div>
-    <div class="row"><span data-ar="تكلفة البضاعة المباعة" data-en="Cost of goods sold">تكلفة البضاعة المباعة</span><span class="n">1,180.500</span></div>
-    <div class="row"><span data-ar="مصروفات تشغيلية" data-en="Operating expenses">مصروفات تشغيلية</span><span class="n">860.000</span></div>
-    <div class="row"><span data-ar="إعلان مشهور — طلبات التعادل" data-en="Influencer ad — break-even orders">إعلان مشهور — طلبات التعادل</span><span class="n">38 / 52 ✓</span></div>
-    <div class="row"><b data-ar="صافي الربح" data-en="Net profit">صافي الربح</b><b class="n gold">1,199.500 KWD</b></div>
+  <div class="scene"><div class="float"><div class="hero-3d" style="position:relative">
+    <div class="dev"><div class="bar"><i></i><i></i><i></i><span>cashdaftar.com/app</span></div><img src="assets/img/shot-home.webp" alt="لوحة كاش دفتر — الرئيسية" width="1400" height="875" fetchpriority="high"></div>
+    <div class="chip c1"><span class="dot"></span><span data-ar="قيد متوازن — ترحّل" data-en="Balanced entry — posted">قيد متوازن — ترحّل</span></div>
+    <div class="chip c2 g"><b data-ar="صافي الربح" data-en="Net profit">صافي الربح</b><b class="num">+1,199.500</b></div>
+  </div></div></div>
+</div></section>
+
+<!-- ===== JOURNEY: the thread untangles as you scroll ===== -->
+<section class="pin" id="journey"><div class="stage"><div class="wrap jin">
+  <svg viewBox="0 0 1000 420" aria-hidden="true">
+    <path id="tangle" d="M 987.1 256.9 C 984.7 260.6 978.2 272.5 972.6 279.0 C 966.9 285.6 960.1 291.6 953.1 296.2 C 946.1 300.9 938.1 304.7 930.3 307.1 C 922.5 309.6 914.2 310.8 906.3 310.8 C 898.4 310.8 890.3 309.5 883.1 307.1 C 875.8 304.8 868.7 301.1 862.7 296.7 C 856.7 292.3 851.2 286.6 846.9 280.6 C 842.7 274.6 839.2 267.6 837.0 260.7 C 834.7 253.7 833.6 246.1 833.4 238.9 C 833.3 231.8 834.3 224.3 836.2 217.6 C 838.0 210.8 841.0 204.2 844.4 198.6 C 847.8 192.9 852.2 187.8 856.7 183.7 C 861.2 179.6 866.4 176.4 871.3 174.2 C 876.2 172.0 881.4 170.8 886.0 170.5 C 890.6 170.3 895.1 171.1 898.7 172.6 C 902.3 174.2 905.5 176.8 907.5 179.8 C 909.5 182.8 910.7 186.7 910.7 190.6 C 910.8 194.6 909.7 199.1 907.5 203.4 C 905.3 207.6 901.9 212.2 897.5 216.0 C 893.0 219.9 887.4 223.8 881.0 226.7 C 874.6 229.6 867.0 232.1 859.1 233.5 C 851.2 234.9 842.3 235.6 833.5 235.2 C 824.6 234.8 815.1 233.4 806.0 231.0 C 796.9 228.6 787.5 225.1 778.9 220.8 C 770.3 216.5 761.7 211.1 754.2 205.2 C 746.7 199.2 739.7 192.3 733.9 185.3 C 728.0 178.3 723.0 170.5 719.1 162.9 C 715.3 155.3 712.5 147.3 710.7 140.0 C 709.0 132.6 708.5 125.1 708.8 118.6 C 709.1 112.0 710.5 105.8 712.6 100.7 C 714.6 95.6 717.6 91.2 720.9 88.1 C 724.1 84.9 728.1 82.7 731.9 81.7 C 735.7 80.8 740.0 80.9 743.7 82.2 C 747.4 83.4 751.2 85.9 754.1 89.2 C 757.0 92.5 759.5 97.0 761.0 102.0 C 762.5 106.9 763.3 112.9 763.0 118.9 C 762.6 124.9 761.3 131.6 758.8 138.0 C 756.4 144.4 752.8 151.2 748.2 157.2 C 743.6 163.3 737.8 169.3 731.3 174.3 C 724.8 179.3 717.1 183.9 709.1 187.3 C 701.1 190.7 692.1 193.3 683.1 194.6 C 674.2 196.0 664.6 196.3 655.3 195.3 C 646.1 194.4 636.6 192.3 627.9 189.1 C 619.1 186.0 610.5 181.6 602.8 176.5 C 595.2 171.4 588.1 165.1 582.1 158.5 C 576.2 151.9 571.1 144.4 567.2 136.9 C 563.3 129.5 560.5 121.4 558.9 113.8 C 557.2 106.2 556.8 98.4 557.4 91.4 C 557.9 84.4 559.6 77.6 562.1 72.0 C 564.5 66.3 568.0 61.2 571.8 57.3 C 575.7 53.5 580.4 50.6 585.0 49.0 C 589.6 47.4 594.8 47.0 599.5 47.8 C 604.2 48.6 609.0 50.6 613.1 53.8 C 617.2 56.9 621.1 61.3 623.9 66.4 C 626.8 71.5 629.0 77.8 630.1 84.4 C 631.3 91.0 631.5 98.5 630.6 106.0 C 629.6 113.5 627.6 121.6 624.6 129.3 C 621.6 136.9 617.4 144.8 612.4 152.0 C 607.4 159.1 601.3 166.1 594.7 172.1 C 588.2 178.1 580.6 183.5 573.0 187.9 C 565.4 192.3 557.1 195.8 549.1 198.3 C 541.1 200.8 532.7 202.3 525.1 202.8 C 517.4 203.3 509.7 202.7 503.0 201.4 C 496.3 200.1 490.0 197.7 484.9 195.0 C 479.7 192.3 475.3 188.6 472.1 185.0 C 468.9 181.3 466.8 177.1 465.7 173.1 C 464.7 169.2 464.9 164.9 466.0 161.4 C 467.1 157.8 469.4 154.3 472.3 151.7 C 475.3 149.1 479.4 146.9 483.8 145.8 C 488.2 144.7 493.5 144.3 498.7 145.0 C 503.9 145.7 509.7 147.3 515.0 149.9 C 520.3 152.6 525.9 156.3 530.6 160.8 C 535.3 165.2 539.8 170.8 543.3 176.8 C 546.8 182.8 549.7 189.7 551.4 196.8 C 553.1 203.8 553.9 211.6 553.5 219.0 C 553.1 226.5 551.6 234.3 549.0 241.5 C 546.3 248.6 542.5 255.8 537.8 262.0 C 533.0 268.2 527.1 274.0 520.5 278.7 C 514.0 283.3 506.4 287.2 498.7 289.8 C 490.9 292.4 482.3 294.0 473.9 294.4 C 465.5 294.7 456.6 293.8 448.2 291.8 C 439.9 289.9 431.5 286.6 423.9 282.5 C 416.4 278.5 409.1 273.2 402.9 267.4 C 396.7 261.6 391.2 254.8 386.8 248.0 C 382.4 241.1 379.0 233.5 376.6 226.2 C 374.3 218.9 373.1 211.3 372.9 204.4 C 372.6 197.4 373.5 190.5 375.2 184.6 C 376.8 178.7 379.5 173.3 382.6 169.0 C 385.7 164.7 389.7 161.3 393.6 159.1 C 397.6 156.8 402.2 155.7 406.3 155.7 C 410.5 155.8 414.9 157.0 418.6 159.3 C 422.3 161.6 425.8 165.1 428.3 169.3 C 430.8 173.6 432.8 179.0 433.6 184.7 C 434.4 190.4 434.4 197.1 433.2 203.7 C 432.0 210.2 429.6 217.5 426.2 224.2 C 422.8 230.9 418.1 237.9 412.5 244.0 C 407.0 250.2 400.2 256.2 392.8 261.0 C 385.5 265.9 377.0 270.2 368.3 273.3 C 359.6 276.4 350.0 278.5 340.7 279.4 C 331.3 280.3 321.4 280.0 312.0 278.6 C 302.7 277.2 293.2 274.5 284.5 270.8 C 275.9 267.2 267.5 262.3 260.2 256.7 C 253.0 251.1 246.3 244.4 240.9 237.5 C 235.4 230.5 230.9 222.6 227.6 214.9 C 224.3 207.1 222.1 198.8 221.0 191.0 C 219.8 183.2 219.9 175.2 220.9 168.0 C 221.8 160.8 223.8 153.8 226.4 147.8 C 229.0 141.8 232.5 136.4 236.2 132.1 C 239.9 127.8 244.3 124.4 248.4 122.0 C 252.5 119.7 257.0 118.4 260.8 118.0 C 264.7 117.7 268.6 118.5 271.5 119.9 C 274.4 121.4 276.9 123.9 278.4 126.8 C 279.8 129.7 280.5 133.5 280.0 137.3 C 279.6 141.2 278.1 145.6 275.6 149.7 C 273.0 153.8 269.3 158.2 264.7 161.9 C 260.1 165.6 254.4 169.2 248.0 172.0 C 241.6 174.7 234.1 177.0 226.4 178.2 C 218.7 179.5 210.1 180.0 201.7 179.4 C 193.3 178.9 184.3 177.4 175.8 174.9 C 167.4 172.5 158.8 168.9 151.0 164.7 C 143.2 160.4 135.6 155.1 129.1 149.4 C 122.7 143.7 116.8 137.0 112.1 130.3 C 107.5 123.7 103.7 116.3 101.2 109.3 C 98.6 102.3 97.2 94.9 96.9 88.3 C 96.6 81.6 97.6 75.0 99.4 69.4 C 101.1 63.8 104.1 58.7 107.7 54.7 C 111.2 50.8 115.8 47.7 120.5 45.8 C 125.3 44.0 130.8 43.2 136.1 43.7 C 141.4 44.2 147.2 45.9 152.3 48.8 C 157.4 51.6 162.7 55.8 166.9 60.8 C 171.2 65.8 175.2 72.0 178.0 78.7 C 180.9 85.4 183.0 93.1 184.0 100.9 C 184.9 108.7 184.9 117.3 183.7 125.4 C 182.5 133.6 180.2 142.2 176.9 150.0 C 173.5 157.8 169.0 165.6 163.7 172.4 C 158.5 179.2 152.1 185.5 145.3 190.6 C 138.6 195.7 130.8 200.0 123.1 203.1 C 115.4 206.1 107.1 208.0 99.1 208.8 C 91.2 209.5 82.9 209.0 75.4 207.5 C 67.9 206.0 57.6 201.0 54.1 199.7" fill="none" stroke="#E7C887" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    <path id="line" d="M 930 360 L 80 360" fill="none" stroke="#D3A146" stroke-width="6" stroke-linecap="round"/>
+  </svg>
+  <div class="jcaps">
+    <div class="jcap on"><h2 data-ar="دفاترك اليوم: فواتير هني.. مصروفات هناك.. <b>وأرقام ما تطابق</b>" data-en="Your books today: invoices here, expenses there, <b>numbers that don't add up</b>">دفاترك اليوم: فواتير هني.. مصروفات هناك.. <b>وأرقام ما تطابق</b></h2><p data-ar="واتساب، إكسل، ودفتر ورقي. وفي آخر الشهر ما أحد يعرف كم الربح الحقيقي." data-en="WhatsApp, Excel and a paper notebook. At month end nobody knows the real profit.">واتساب، إكسل، ودفتر ورقي. وفي آخر الشهر ما أحد يعرف كم الربح الحقيقي.</p></div>
+    <div class="jcap"><h2 data-ar="كاش دفتر يربطها <b>بخيط واحد</b>" data-en="Cash Daftar ties it all into <b>one thread</b>">كاش دفتر يربطها <b>بخيط واحد</b></h2><p data-ar="كل عملية تسجّلها تولّد قيدها المحاسبي تلقائياً — متوازن، مؤرّخ، وجاهز للتقرير." data-en="Every transaction you record generates its own accounting entry — balanced, dated, report-ready.">كل عملية تسجّلها تولّد قيدها المحاسبي تلقائياً — متوازن، مؤرّخ، وجاهز للتقرير.</p></div>
+    <div class="jcap"><h2 data-ar="من التشابك.. <b>إلى الوضوح</b>" data-en="From tangled.. <b>to clear</b>">من التشابك.. <b>إلى الوضوح</b></h2><p data-ar="نفس رحلة كاش كلينك مع عملائها — لكن لدفاتر مشروعك." data-en="The same Cash Clinic journey — applied to your business books.">نفس رحلة كاش كلينك مع عملائها — لكن لدفاتر مشروعك.</p></div>
   </div>
+  <div class="jchips">
+    <span style="--i:0" data-ar="✓ قيد متوازن" data-en="✓ Balanced entry">✓ قيد متوازن</span>
+    <span style="--i:1" data-ar="✓ ربح حقيقي" data-en="✓ Real profit">✓ ربح حقيقي</span>
+    <span style="--i:2" data-ar="✓ ميزانية جاهزة" data-en="✓ Statements ready">✓ ميزانية جاهزة</span>
+    <span style="--i:3" data-ar="✓ ملف XBRL" data-en="✓ XBRL file">✓ ملف XBRL</span>
+  </div>
+</div></div></section>
+
+<!-- ===== STACK: three screens stack in 3D ===== -->
+<section class="pin" id="stack"><div class="stage"><div class="wrap sgrid">
+  <div class="scaps">
+    <div class="scap on"><span class="k">01 · <span data-ar="الدفتر" data-en="The ledger">الدفتر</span></span><h2 data-ar="لوحة وحدة.. <b>تشوف فيها شركتك كلها</b>" data-en="One dashboard.. <b>your whole business in view</b>">لوحة وحدة.. <b>تشوف فيها شركتك كلها</b></h2><p data-ar="إيرادات الشهر ومصروفاته، اللي لك عند العملاء واللي عليك للموردين، وآخر القيود — أول ما تفتح الصفحة." data-en="This month's revenue and expenses, what customers owe you and what you owe suppliers, and the latest entries — the moment you open the page.">إيرادات الشهر ومصروفاته، اللي لك عند العملاء واللي عليك للموردين، وآخر القيود — أول ما تفتح الصفحة.</p><div class="sdots"><i class="on"></i><i></i><i></i></div></div>
+    <div class="scap"><span class="k">02 · <span data-ar="التكلفة" data-en="Costing">التكلفة</span></span><h2 data-ar="كم <b>يكلّفك</b> منتجك فعلاً؟" data-en="What does your product <b>really cost</b>?">كم <b>يكلّفك</b> منتجك فعلاً؟</h2><p data-ar="سجّل المواد الأولية وكمياتها لكل منتج، والنظام يطلع لك التكلفة الحقيقية، هامش الربح، وأقل سعر تبيع فيه بدون خسارة." data-en="Enter raw materials and quantities per product; get the true cost, the margin, and the lowest price before you lose money.">سجّل المواد الأولية وكمياتها لكل منتج، والنظام يطلع لك التكلفة الحقيقية، هامش الربح، وأقل سعر تبيع فيه بدون خسارة.</p><div class="sdots"><i></i><i class="on"></i><i></i></div></div>
+    <div class="scap"><span class="k">03 · <span data-ar="التقارير" data-en="Reports">التقارير</span></span><h2 data-ar="ميزانية <b>متوازنة</b>.. من دون محاسب" data-en="A <b>balanced</b> balance sheet.. no accountant needed">ميزانية <b>متوازنة</b>.. من دون محاسب</h2><p data-ar="قائمة الدخل والمركز المالي وميزان المراجعة تتولّد من قيودك مباشرة. ولو مشى شي غلط، النظام يقول لك «غير متوازن» قبل ما يقول لك المدقق." data-en="P&L, balance sheet and trial balance are generated straight from your entries. If something is off, the system says “out of balance” before the auditor does.">قائمة الدخل والمركز المالي وميزان المراجعة تتولّد من قيودك مباشرة. ولو مشى شي غلط، النظام يقول لك «غير متوازن» قبل ما يقول لك المدقق.</p><div class="sdots"><i></i><i></i><i class="on"></i></div></div>
+  </div>
+  <div class="sdev">
+    <div class="dev"><div class="bar"><i></i><i></i><i></i><span>الرئيسية</span></div><img src="assets/img/shot-home.webp" alt="" width="1400" height="875" loading="lazy"></div>
+    <div class="dev"><div class="bar"><i></i><i></i><i></i><span>المنتجات والتكلفة</span></div><img src="assets/img/shot-products.webp" alt="" width="1400" height="875" loading="lazy"></div>
+    <div class="dev"><div class="bar"><i></i><i></i><i></i><span>المركز المالي</span></div><img src="assets/img/shot-reports.webp" alt="" width="1400" height="875" loading="lazy"></div>
+  </div>
+</div></div></section>
+
+<section class="nums"><div class="wrap in">
+  <div class="rv" style="--i:0"><div class="v num" data-count="31">0</div><div class="k" data-ar="حساب جاهز في دليل الحسابات" data-en="ready-made accounts in the chart">حساب جاهز في دليل الحسابات</div></div>
+  <div class="rv" style="--i:1"><div class="v num" data-count="6">0</div><div class="k" data-ar="تقارير مالية بضغطة" data-en="financial reports, one click">تقارير مالية بضغطة</div></div>
+  <div class="rv" style="--i:2"><div class="v num" data-count="12">0</div><div class="k" data-ar="شهر في تقرير واحد" data-en="months in one report">شهر في تقرير واحد</div></div>
+  <div class="rv" style="--i:3"><div class="v num" data-count="0">0</div><div class="k" data-ar="قيد غير متوازن يقدر يترحّل" data-en="unbalanced entries can be posted">قيد غير متوازن يقدر يترحّل</div></div>
 </div></section>
 
 <section class="sec" id="features"><div class="wrap">
-  <div class="sec-h"><span class="eyebrow" data-ar="المميزات" data-en="Features">المميزات</span><h2 data-ar="كل اللي يحتاجه مشروعك.. بدون تعقيد" data-en="Everything your business needs, without the complexity">كل اللي يحتاجه مشروعك.. بدون تعقيد</h2><p data-ar="مصمّم للمشاريع الكويتية: عطور، مقاهي، متاجر إنستغرام، ورش، وخدمات. وحدة عملة: الدينار الكويتي بثلاث خانات عشرية." data-en="Built for Kuwaiti businesses: perfume brands, cafés, Instagram shops, workshops and services. One currency: KWD to three decimals.">مصمّم للمشاريع الكويتية: عطور، مقاهي، متاجر إنستغرام، ورش، وخدمات. وحدة عملة: الدينار الكويتي بثلاث خانات عشرية.</p></div>
+  <div class="sec-h rv"><span class="eyebrow" data-ar="المميزات" data-en="Features">المميزات</span><h2 data-ar="كل اللي يحتاجه مشروعك.. بدون تعقيد" data-en="Everything your business needs, without the complexity">كل اللي يحتاجه مشروعك.. بدون تعقيد</h2><p data-ar="مصمّم للمشاريع الكويتية: عطور، مقاهي، متاجر إنستغرام، ورش، وخدمات. وحدة عملة: الدينار الكويتي بثلاث خانات عشرية." data-en="Built for Kuwaiti businesses: perfume brands, cafés, Instagram shops, workshops and services. One currency: KWD to three decimals.">مصمّم للمشاريع الكويتية: عطور، مقاهي، متاجر إنستغرام، ورش، وخدمات. وحدة عملة: الدينار الكويتي بثلاث خانات عشرية.</p></div>
   <div class="feat">
-    <div class="f"><div class="ic">📒</div><h3 data-ar="القيد المزدوج بدون صداع" data-en="Double-entry, headache-free">القيد المزدوج بدون صداع</h3><p data-ar="دليل حسابات جاهز للمشاريع الكويتية، وكل فاتورة ومصروف وسند قبض يولّد قيده تلقائياً. ما تقدر ترحّل قيد غير متوازن." data-en="A ready-made Kuwaiti SME chart of accounts. Every invoice, expense and receipt posts its own entry automatically — unbalanced entries can't be posted.">دليل حسابات جاهز للمشاريع الكويتية، وكل فاتورة ومصروف وسند قبض يولّد قيده تلقائياً. ما تقدر ترحّل قيد غير متوازن.</p></div>
-    <div class="f"><div class="ic">🧾</div><h3 data-ar="فواتير، عملاء، وموردون" data-en="Invoices, customers, suppliers">فواتير، عملاء، وموردون</h3><p data-ar="فواتير مبيعات، مصروفات نقدية أو آجلة، سندات قبض وصرف، وأرصدة العملاء والموردين محدّثة لحظياً." data-en="Sales invoices, cash or credit expenses, receipts and payments, with customer and supplier balances updated live.">فواتير مبيعات، مصروفات نقدية أو آجلة، سندات قبض وصرف، وأرصدة العملاء والموردين محدّثة لحظياً.</p></div>
-    <div class="f"><div class="ic">📦</div><h3 data-ar="تكلفة المنتج وهامش الربح" data-en="Product cost & margin">تكلفة المنتج وهامش الربح</h3><p data-ar="سجّل موادك الأولية وكمياتها لكل منتج، والنظام يطلع لك التكلفة الحقيقية، الهامش، وأقل سعر تبيع فيه بدون خسارة." data-en="Enter raw materials and quantities per product; the system gives you true cost, margin, and the minimum price before you lose money.">سجّل موادك الأولية وكمياتها لكل منتج، والنظام يطلع لك التكلفة الحقيقية، الهامش، وأقل سعر تبيع فيه بدون خسارة.</p></div>
-    <div class="f"><div class="ic">📣</div><h3 data-ar="إعلان مشهور؟ معرض؟ يستاهل أو لا" data-en="Influencer ad? Exhibition? Worth it or not">إعلان مشهور؟ معرض؟ يستاهل أو لا</h3><p data-ar="قبل ما تدفع: كم طلب تحتاج حتى تتعادل. بعد ما تدفع: كم طلب جاك فعلاً وكم ربحت. نفس الشي للمعارض والمشاركات." data-en="Before you pay: how many orders to break even. After: how many actually came in and what you made. Same for exhibitions and pop-ups.">قبل ما تدفع: كم طلب تحتاج حتى تتعادل. بعد ما تدفع: كم طلب جاك فعلاً وكم ربحت. نفس الشي للمعارض والمشاركات.</p></div>
-    <div class="f"><div class="ic">📊</div><h3 data-ar="تقارير تفهمها" data-en="Reports you actually understand">تقارير تفهمها</h3><p data-ar="قائمة الدخل، المركز المالي، ميزان المراجعة، كشف حساب لأي حساب، وتقرير 12 شهر يوريك الإيرادات والمصروفات وحركة الكاش شهر بشهر." data-en="P&L, balance sheet, trial balance, any account ledger, and a 12-month view of revenue, expenses and cash movement.">قائمة الدخل، المركز المالي، ميزان المراجعة، كشف حساب لأي حساب، وتقرير 12 شهر يوريك الإيرادات والمصروفات وحركة الكاش شهر بشهر.</p></div>
-    <div class="f"><div class="ic">📤</div><h3 data-ar="نهاية السنة و XBRL" data-en="Year-end & XBRL">نهاية السنة و XBRL</h3><p data-ar="ميزانيتك جاهزة، وملف Excel مربوط ببنود القوائم ورموز التصنيف الدولية، جاهز للترحيل إلى قالب XBRL المطلوب في الكويت." data-en="Statements ready, plus an Excel file mapped to statement lines and IFRS taxonomy elements, ready to transfer into Kuwait's XBRL template.">ميزانيتك جاهزة، وملف Excel مربوط ببنود القوائم ورموز التصنيف الدولية، جاهز للترحيل إلى قالب XBRL المطلوب في الكويت.</p></div>
+    <div class="f rv" style="--i:0"><div class="ic">📒</div><h3 data-ar="القيد المزدوج بدون صداع" data-en="Double-entry, headache-free">القيد المزدوج بدون صداع</h3><p data-ar="دليل حسابات جاهز للمشاريع الكويتية، وكل فاتورة ومصروف وسند قبض يولّد قيده تلقائياً. ما تقدر ترحّل قيد غير متوازن." data-en="A ready-made Kuwaiti SME chart of accounts. Every invoice, expense and receipt posts its own entry automatically — unbalanced entries can't be posted.">دليل حسابات جاهز للمشاريع الكويتية، وكل فاتورة ومصروف وسند قبض يولّد قيده تلقائياً. ما تقدر ترحّل قيد غير متوازن.</p></div>
+    <div class="f rv" style="--i:1"><div class="ic">🧾</div><h3 data-ar="فواتير، عملاء، وموردون" data-en="Invoices, customers, suppliers">فواتير، عملاء، وموردون</h3><p data-ar="فواتير مبيعات، مصروفات نقدية أو آجلة، سندات قبض وصرف، وأرصدة العملاء والموردين محدّثة لحظياً." data-en="Sales invoices, cash or credit expenses, receipts and payments, with customer and supplier balances updated live.">فواتير مبيعات، مصروفات نقدية أو آجلة، سندات قبض وصرف، وأرصدة العملاء والموردين محدّثة لحظياً.</p></div>
+    <div class="f rv" style="--i:2"><div class="ic">📦</div><h3 data-ar="تكلفة المنتج وهامش الربح" data-en="Product cost & margin">تكلفة المنتج وهامش الربح</h3><p data-ar="سجّل موادك الأولية وكمياتها لكل منتج، والنظام يطلع لك التكلفة الحقيقية، الهامش، وأقل سعر تبيع فيه بدون خسارة." data-en="Enter raw materials and quantities per product; the system gives you true cost, margin, and the minimum price before you lose money.">سجّل موادك الأولية وكمياتها لكل منتج، والنظام يطلع لك التكلفة الحقيقية، الهامش، وأقل سعر تبيع فيه بدون خسارة.</p></div>
+    <div class="f rv" style="--i:3"><div class="ic">📣</div><h3 data-ar="إعلان مشهور؟ معرض؟ يستاهل أو لا" data-en="Influencer ad? Exhibition? Worth it or not">إعلان مشهور؟ معرض؟ يستاهل أو لا</h3><p data-ar="قبل ما تدفع: كم طلب تحتاج حتى تتعادل. بعد ما تدفع: كم طلب جاك فعلاً وكم ربحت. نفس الشي للمعارض والمشاركات." data-en="Before you pay: how many orders to break even. After: how many actually came in and what you made. Same for exhibitions and pop-ups.">قبل ما تدفع: كم طلب تحتاج حتى تتعادل. بعد ما تدفع: كم طلب جاك فعلاً وكم ربحت. نفس الشي للمعارض والمشاركات.</p></div>
+    <div class="f rv" style="--i:4"><div class="ic">📊</div><h3 data-ar="تقارير تفهمها" data-en="Reports you actually understand">تقارير تفهمها</h3><p data-ar="قائمة الدخل، المركز المالي، ميزان المراجعة، كشف حساب لأي حساب، وتقرير 12 شهر يوريك الإيرادات والمصروفات وحركة الكاش شهر بشهر." data-en="P&L, balance sheet, trial balance, any account ledger, and a 12-month view of revenue, expenses and cash movement.">قائمة الدخل، المركز المالي، ميزان المراجعة، كشف حساب لأي حساب، وتقرير 12 شهر يوريك الإيرادات والمصروفات وحركة الكاش شهر بشهر.</p></div>
+    <div class="f rv" style="--i:5"><div class="ic">📤</div><h3 data-ar="نهاية السنة و XBRL" data-en="Year-end & XBRL">نهاية السنة و XBRL</h3><p data-ar="ميزانيتك جاهزة، وملف Excel مربوط ببنود القوائم ورموز التصنيف الدولية، جاهز للترحيل إلى قالب XBRL المطلوب في الكويت." data-en="Statements ready, plus an Excel file mapped to statement lines and IFRS taxonomy elements, ready to transfer into Kuwait's XBRL template.">ميزانيتك جاهزة، وملف Excel مربوط ببنود القوائم ورموز التصنيف الدولية، جاهز للترحيل إلى قالب XBRL المطلوب في الكويت.</p></div>
   </div>
 </div></section>
 
 <section class="sec alt" id="how"><div class="wrap">
-  <div class="sec-h"><span class="eyebrow" data-ar="كيف يشتغل" data-en="How it works">كيف يشتغل</span><h2 data-ar="ثلاث خطوات وتبدأ" data-en="Three steps and you're in">ثلاث خطوات وتبدأ</h2></div>
-  <div class="steps">
-    <div class="step"><div class="n">1</div><h3 data-ar="سجّل وأنشئ دفتر شركتك" data-en="Sign up and create your ledger">سجّل وأنشئ دفتر شركتك</h3><p data-ar="اسم المشروع ورقم الرخصة وشهر بداية سنتك المالية. دليل الحسابات ينضبط لك تلقائياً." data-en="Business name, licence number, and fiscal year start. The chart of accounts is set up for you.">اسم المشروع ورقم الرخصة وشهر بداية سنتك المالية. دليل الحسابات ينضبط لك تلقائياً.</p></div>
-    <div class="step"><div class="n">2</div><h3 data-ar="سجّل يومك" data-en="Record your day">سجّل يومك</h3><p data-ar="طلب انباع، فاتورة انطلعت، مصروف انصرف، دفعة وصلت. دقيقة لكل عملية." data-en="An order sold, an invoice issued, an expense paid, a payment received. A minute each.">طلب انباع، فاتورة انطلعت، مصروف انصرف، دفعة وصلت. دقيقة لكل عملية.</p></div>
-    <div class="step"><div class="n">3</div><h3 data-ar="اقرأ أرقامك وقرّر" data-en="Read your numbers and decide">اقرأ أرقامك وقرّر</h3><p data-ar="ربحك الحقيقي، منتجك الأربح، إعلانك الأنجح. وفي نهاية السنة الميزانية جاهزة." data-en="Your real profit, your most profitable product, your best campaign. At year end, the statements are ready.">ربحك الحقيقي، منتجك الأربح، إعلانك الأنجح. وفي نهاية السنة الميزانية جاهزة.</p></div>
+  <div class="sec-h rv"><span class="eyebrow" data-ar="كيف يشتغل" data-en="How it works">كيف يشتغل</span><h2 data-ar="ثلاث خطوات وتبدأ.. ومن جوالك" data-en="Three steps and you're in — from your phone too">ثلاث خطوات وتبدأ.. ومن جوالك</h2></div>
+  <div class="how">
+    <div class="steps">
+      <div class="step rv" style="--i:0"><div class="n">1</div><div><h3 data-ar="سجّل وأنشئ دفتر شركتك" data-en="Sign up and create your ledger">سجّل وأنشئ دفتر شركتك</h3><p data-ar="اسم المشروع ورقم الرخصة وشهر بداية سنتك المالية. دليل الحسابات ينضبط لك تلقائياً." data-en="Business name, licence number, and fiscal year start. The chart of accounts is set up for you.">اسم المشروع ورقم الرخصة وشهر بداية سنتك المالية. دليل الحسابات ينضبط لك تلقائياً.</p></div></div>
+      <div class="step rv" style="--i:1"><div class="n">2</div><div><h3 data-ar="سجّل يومك" data-en="Record your day">سجّل يومك</h3><p data-ar="طلب انباع، فاتورة انطلعت، مصروف انصرف، دفعة وصلت. دقيقة لكل عملية." data-en="An order sold, an invoice issued, an expense paid, a payment received. A minute each.">طلب انباع، فاتورة انطلعت، مصروف انصرف، دفعة وصلت. دقيقة لكل عملية.</p></div></div>
+      <div class="step rv" style="--i:2"><div class="n">3</div><div><h3 data-ar="اقرأ أرقامك وقرّر" data-en="Read your numbers and decide">اقرأ أرقامك وقرّر</h3><p data-ar="ربحك الحقيقي، منتجك الأربح، إعلانك الأنجح. وفي نهاية السنة الميزانية جاهزة." data-en="Your real profit, your most profitable product, your best campaign. At year end, the statements are ready.">ربحك الحقيقي، منتجك الأربح، إعلانك الأنجح. وفي نهاية السنة الميزانية جاهزة.</p></div></div>
+    </div>
+    <div class="rv" style="--i:2"><div class="phone"><img src="assets/img/shot-mobile.webp" alt="كاش دفتر على الجوال" width="585" height="1170" loading="lazy"></div></div>
   </div>
 </div></section>
 
 <section class="sec" id="pricing"><div class="wrap">
-  <div class="sec-h"><span class="eyebrow" data-ar="الأسعار" data-en="Pricing">الأسعار</span><h2 data-ar="سعر واحد بسيط.. كل المميزات" data-en="One simple price, every feature">سعر واحد بسيط.. كل المميزات</h2><p data-ar="بدون باقات معقدة. اشتراك واحد يفتح لك كل النظام." data-en="No complicated tiers. One subscription unlocks the whole system.">بدون باقات معقدة. اشتراك واحد يفتح لك كل النظام.</p></div>
+  <div class="sec-h rv"><span class="eyebrow" data-ar="الأسعار" data-en="Pricing">الأسعار</span><h2 data-ar="سعر واحد بسيط.. كل المميزات" data-en="One simple price, every feature">سعر واحد بسيط.. كل المميزات</h2><p data-ar="بدون باقات معقدة. اشتراك واحد يفتح لك كل النظام." data-en="No complicated tiers. One subscription unlocks the whole system.">بدون باقات معقدة. اشتراك واحد يفتح لك كل النظام.</p></div>
   <div class="plans">
-    <div class="plan"><div class="k" data-ar="شهري" data-en="Monthly">شهري</div><div class="p"><span class="num">4.950</span> <small data-ar="د.ك / شهر" data-en="KWD / month">د.ك / شهر</small></div><div class="save"></div>
+    <div class="plan rv" style="--i:0"><div class="k" data-ar="شهري" data-en="Monthly">شهري</div><div class="p"><span class="num">4.950</span> <small data-ar="د.ك / شهر" data-en="KWD / month">د.ك / شهر</small></div><div class="save"></div>
       <ul><li data-ar="دفتر كامل: قيود، فواتير، مصروفات، قبض وصرف" data-en="Full ledger: journal, invoices, expenses, receipts & payments">دفتر كامل: قيود، فواتير، مصروفات، قبض وصرف</li><li data-ar="تكلفة المنتجات وتحليل الحملات والمعارض" data-en="Product costing, campaign & exhibition analysis">تكلفة المنتجات وتحليل الحملات والمعارض</li><li data-ar="التقارير المالية وتصدير XBRL" data-en="Financial reports and XBRL export">التقارير المالية وتصدير XBRL</li><li data-ar="محاسب إضافي بصلاحية دخول" data-en="Extra accountant seat">محاسب إضافي بصلاحية دخول</li></ul>
       <a class="btn btn-o" style="width:100%" href="app.html" data-ar="ابدأ التجربة المجانية" data-en="Start free trial">ابدأ التجربة المجانية</a></div>
-    <div class="plan best"><div class="badge" data-ar="الأوفر — شهرين مجاناً" data-en="Best value — 2 months free">الأوفر — شهرين مجاناً</div><div class="k" data-ar="سنوي" data-en="Annual">سنوي</div><div class="p"><span class="num">50.000</span> <small data-ar="د.ك / سنة" data-en="KWD / year">د.ك / سنة</small></div><div class="save" data-ar="≈ 4.167 د.ك بالشهر" data-en="≈ 4.167 KWD per month">≈ 4.167 د.ك بالشهر</div>
+    <div class="plan best rv" style="--i:1"><div class="badge" data-ar="الأوفر — شهرين مجاناً" data-en="Best value — 2 months free">الأوفر — شهرين مجاناً</div><div class="k" data-ar="سنوي" data-en="Annual">سنوي</div><div class="p"><span class="num">50.000</span> <small data-ar="د.ك / سنة" data-en="KWD / year">د.ك / سنة</small></div><div class="save" data-ar="≈ 4.167 د.ك بالشهر" data-en="≈ 4.167 KWD per month">≈ 4.167 د.ك بالشهر</div>
       <ul><li data-ar="دفتر كامل: قيود، فواتير، مصروفات، قبض وصرف" data-en="Full ledger: journal, invoices, expenses, receipts & payments">دفتر كامل: قيود، فواتير، مصروفات، قبض وصرف</li><li data-ar="تكلفة المنتجات وتحليل الحملات والمعارض" data-en="Product costing, campaign & exhibition analysis">تكلفة المنتجات وتحليل الحملات والمعارض</li><li data-ar="التقارير المالية وتصدير XBRL" data-en="Financial reports and XBRL export">التقارير المالية وتصدير XBRL</li><li data-ar="محاسب إضافي بصلاحية دخول" data-en="Extra accountant seat">محاسب إضافي بصلاحية دخول</li></ul>
       <a class="btn btn-g" style="width:100%" href="app.html" data-ar="ابدأ التجربة المجانية" data-en="Start free trial">ابدأ التجربة المجانية</a></div>
   </div>
-  <p style="text-align:center;font-size:13.5px;color:var(--cc-grey-500);margin:22px 0 0" data-ar="الدفع عبر Tap: KNET أو بطاقة. الأسعار بالدينار الكويتي." data-en="Payment via Tap: KNET or card. Prices in KWD.">الدفع عبر Tap: KNET أو بطاقة. الأسعار بالدينار الكويتي.</p>
+  <p class="rv" style="text-align:center;font-size:13.5px;color:var(--cc-grey-500);margin:22px 0 0" data-ar="النسخة الحالية تجريبية — الدفع (KNET / بطاقة عبر Tap) يُفعّل عند الإطلاق الرسمي. الأسعار بالدينار الكويتي." data-en="Current version is a demo — payment (KNET / card via Tap) goes live at launch. Prices in KWD.">النسخة الحالية تجريبية — الدفع (KNET / بطاقة عبر Tap) يُفعّل عند الإطلاق الرسمي. الأسعار بالدينار الكويتي.</p>
 </div></section>
 
 <section class="sec alt"><div class="wrap">
-  <div class="sec-h"><h2 data-ar="أسئلة شائعة" data-en="FAQ">أسئلة شائعة</h2></div>
-  <div class="faq">
+  <div class="sec-h rv"><h2 data-ar="أسئلة شائعة" data-en="FAQ">أسئلة شائعة</h2></div>
+  <div class="faq rv">
     <details><summary data-ar="أنا مو محاسب.. أقدر أستخدمه؟" data-en="I'm not an accountant — can I use it?">أنا مو محاسب.. أقدر أستخدمه؟</summary><p data-ar="إي. تسجّل فاتورة أو مصروف أو طلب بشاشة بسيطة، والقيد المحاسبي يتولّد وراها تلقائياً. ولو عندك محاسب، تعطيه صلاحية دخول على دفترك." data-en="Yes. You record an invoice, expense or order in a simple form and the accounting entry is generated behind it. If you have an accountant, give them access to your ledger.">إي. تسجّل فاتورة أو مصروف أو طلب بشاشة بسيطة، والقيد المحاسبي يتولّد وراها تلقائياً. ولو عندك محاسب، تعطيه صلاحية دخول على دفترك.</p></details>
     <details><summary data-ar="شنو XBRL وليش يهمني؟" data-en="What is XBRL and why does it matter?">شنو XBRL وليش يهمني؟</summary><p data-ar="صيغة إلكترونية موحّدة للقوائم المالية تُطلب عند تقديم الميزانية في الكويت. كاش دفتر يطلع لك ملف Excel مربوط ببنود القوائم ورموز التصنيف الدولية حتى يكون الترحيل للقالب المطلوب سهل ومباشر." data-en="A standard electronic format for financial statements required when filing in Kuwait. Cash Daftar produces an Excel file mapped to statement lines and international taxonomy elements so transferring into the required template is straightforward.">صيغة إلكترونية موحّدة للقوائم المالية تُطلب عند تقديم الميزانية في الكويت. كاش دفتر يطلع لك ملف Excel مربوط ببنود القوائم ورموز التصنيف الدولية حتى يكون الترحيل للقالب المطلوب سهل ومباشر.</p></details>
     <details><summary data-ar="بياناتي وين تنحفظ؟" data-en="Where is my data stored?">بياناتي وين تنحفظ؟</summary><p data-ar="على Google Cloud (Firebase) بتشفير كامل، وكل شركة لها مساحة منفصلة ما يشوفها غير أعضائها. الكتابة كلها تمر عبر خادم يتحقق من صلاحيتك وتوازن القيد." data-en="On Google Cloud (Firebase) with full encryption; every company has its own isolated space visible only to its members. All writes pass through a server that verifies your permission and the entry's balance.">على Google Cloud (Firebase) بتشفير كامل، وكل شركة لها مساحة منفصلة ما يشوفها غير أعضائها. الكتابة كلها تمر عبر خادم يتحقق من صلاحيتك وتوازن القيد.</p></details>
@@ -140,9 +259,9 @@ h1 b{font-weight:600;}
   </div>
 </div></section>
 
-<section class="sec" style="padding:56px 0"><div class="wrap" style="text-align:center">
-  <h2 style="font-size:clamp(26px,3.2vw,36px);font-weight:300;color:var(--cc-purple);margin:0" data-ar="جاهز ترتّب دفترك؟" data-en="Ready to get your books in order?">جاهز ترتّب دفترك؟</h2>
-  <div class="cta" style="justify-content:center"><a class="btn btn-g" href="app.html" data-ar="ابدأ تجربتك المجانية" data-en="Start your free trial">ابدأ تجربتك المجانية</a><a class="btn btn-o wa" href="https://wa.me/96522260820" data-wa-msg="السلام عليكم، أبي أستفسر عن نظام كاش دفتر" data-ar="اسأل على واتساب" data-en="Ask on WhatsApp">اسأل على واتساب</a></div>
+<section class="final"><div class="wrap">
+  <h2 class="rv" data-ar="جاهز ترتّب <b>دفترك</b>؟" data-en="Ready to get your <b>books</b> in order?">جاهز ترتّب <b>دفترك</b>؟</h2>
+  <div class="cta rv" style="justify-content:center;--i:1"><a class="btn btn-g" href="app.html" data-ar="ابدأ تجربتك المجانية" data-en="Start your free trial">ابدأ تجربتك المجانية</a><a class="btn btn-c wa" href="https://wa.me/96522260820" data-wa-msg="السلام عليكم، أبي أستفسر عن نظام كاش دفتر" data-ar="اسأل على واتساب" data-en="Ask on WhatsApp">اسأل على واتساب</a></div>
 </div></section>
 
 <footer class="foot"><div class="wrap in">
@@ -153,9 +272,10 @@ h1 b{font-weight:600;}
 
 <script src="assets/js/i18n.js"></script>
 <script>
-/* i18n.js swaps textContent only — the H1 carries a <b>, so re-apply it as HTML on toggle */
-(function(){var h=document.querySelector('h1[data-ar]');function fix(){var l=document.documentElement.getAttribute('data-lang')||'ar';h.innerHTML=h.getAttribute('data-'+l);}
-fix();var b=document.querySelector('[data-langbtn]');if(b)b.addEventListener('click',function(){setTimeout(fix,0);});})();
+/* i18n.js swaps textContent only — headings that carry <b> get re-applied as HTML on toggle */
+(function(){var els=document.querySelectorAll('h1[data-ar],h2[data-ar]');function fix(){var l=document.documentElement.getAttribute('data-lang')||'ar';for(var i=0;i<els.length;i++){var v=els[i].getAttribute('data-'+l);if(v&&v.indexOf('<')>-1)els[i].innerHTML=v;}}
+fix();document.addEventListener('DOMContentLoaded',fix);var b=document.querySelector('[data-langbtn]');if(b)b.addEventListener('click',function(){setTimeout(fix,0);});})();
 </script>
+<script src="assets/js/motion.js" defer></script>
 </body>
 </html>

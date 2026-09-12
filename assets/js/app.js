@@ -187,7 +187,7 @@ function renderOnboarding() {
 /* ---------------- boot ---------------- */
 async function boot() {
   const b = await call("bootstrap");
-  S.user = b.user; S.company = b.company; S.member = b.member; S.isAdmin = b.isAdmin; S.plans = b.plans;
+  S.user = b.user; S.company = b.company; S.member = b.member; S.isAdmin = b.isAdmin; S.plans = b.plans; S.demo = !!b.demo;
   if (!S.company) { renderOnboarding(); return; }
   renderShell(); await subscribeMaster(); route();
 }
@@ -797,7 +797,7 @@ VIEWS.billing = async (root) => {
   const hist = (await getDocs(query(collection(db, `companies/${cid()}/billing`), orderBy("paidAt", "desc"), limit(50)))).docs.map((d) => ({ id: d.id, ...d.data() }));
   const feats = ["planF1", "planF2", "planF3", "planF4"].map((k) => `<li>${t(k)}</li>`).join("");
   root.innerHTML = `<div class="panel"><h3>${t("billing")}</h3><div class="cards"><div class="card"><div class="k">${t("status")}</div><div class="v sm">${sub.active ? t(sub.status === "trial" ? "trial" : "active") : t("expired")}</div><div class="sub">${sub.periodEnd ? `${t("until")} ${sub.periodEnd.slice(0, 10)}` : ""}</div></div><div class="card"><div class="k">${isAr() ? "الباقة" : "Plan"}</div><div class="v sm">${sub.plan ? t(sub.plan + "Plan") : "—"}</div></div></div>
-    ${isOwner() ? `<h3>${t("plansTitle")}</h3><div class="plans">
+    ${S.demo ? `<div class="banner" style="margin:0"><div>🧪 ${isAr() ? "النسخة التجريبية: الدفع عبر Tap موقوف مؤقتاً والاشتراك مفعّل تلقائياً لفترة التجربة. الأسعار عند الإطلاق:" : "Demo version: Tap payments are paused and the subscription is active automatically for the trial. Launch pricing:"} <b class="num">${P.monthly.price}</b> ${t("perMonth")} · <b class="num">${P.annual.price}</b> ${t("perYear")}</div></div>` : isOwner() ? `<h3>${t("plansTitle")}</h3><div class="plans">
       <div class="plan"><div class="k">${t("monthlyPlan")}</div><div class="p"><span class="num">${P.monthly.price}</span> <small>${t("perMonth")}</small></div><ul>${feats}</ul><button class="btn btn-p btn-block" data-plan="monthly">${t("pay")}</button></div>
       <div class="plan best"><div class="badge">${t("bestValue")}</div><div class="k">${t("annualPlan")}</div><div class="p"><span class="num">${P.annual.price}</span> <small>${t("perYear")}</small></div><ul>${feats}</ul><button class="btn btn-g btn-block" data-plan="annual">${t("pay")}</button></div>
     </div><div class="small muted" style="margin-top:10px">${isAr() ? "الدفع عبر Tap (KNET / بطاقة). كل دفعة تضيف المدة على نهاية اشتراكك الحالي — بدون تجديد تلقائي في هذه النسخة." : "Paid via Tap (KNET / card). Each payment extends your current period end — no auto-renewal in this version."}</div><div id="berr"></div>` : `<div class="muted">${isAr() ? "المالك فقط يقدر يجدد الاشتراك" : "Only the owner can renew"}</div>`}
